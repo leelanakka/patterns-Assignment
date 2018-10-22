@@ -3,8 +3,8 @@ const createAlternateRectangle = function(length,breadth){
   let alternateLines = repeatCharacter(length,"-");
   let rectangle="";
   let delimitor="";
-  for(let j = 1; j <= breadth; j++){
-    if(j%2 == 0){
+  for(let index = 1; index <= breadth; index++){
+    if(index%2 == 0){
       rectangle+=delimitor+alternateLines;
     }
     else{
@@ -32,9 +32,9 @@ const createEmptyRectangle = function(length,breadth){
   let delimitor = "";
   let space = "";
   let rectangle = "";
-  for(let j=0; j<breadth; j++){
+  for(let index=0; index<breadth; index++){
     let  row=firstColumn;
-    if(j<breadth-1 && j>0){
+    if(index<breadth-1 && index>0){
       space += repeatSpaces(length-2);
       row="*"+space+"*";
       space="";
@@ -49,7 +49,7 @@ const createFilledRectangle = function(length,breadth){
   let rectangle = "";
   let delimitor = "";
   let column = repeatCharacter(length,"*")
-  for(let j = 0; j < breadth; j++){
+  for(let index = 0; index < breadth; index++){
     rectangle += delimitor+column;
     delimitor = "\n";
   }
@@ -75,4 +75,5 @@ const main = function(){
   }
   console.log(rectangle);
 }
+
 main();
