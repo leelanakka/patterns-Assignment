@@ -3,10 +3,7 @@ const repeatSpaces = function(length){
 }
 
 const repeatCharacter = function(numberOfTimes,character) {
-  let characterLine = "";
-  for (let loopIndex = 0; loopIndex < numberOfTimes; loopIndex++ ) {
-    characterLine += character;
-  }
+ let characterLine = Array(numberOfTimes).fill(character).join("");
   return characterLine;
 }
 
@@ -26,7 +23,7 @@ const generateLowerFilledPart = function(height) {
   let lowerPart = "";
   let spacesRequired = 1;
   let delimiter = "\n";
-  for( let index = height-2; index >= 1 ; index -= 2 ) {
+  for(let index = height-2; index >= 1 ; index -= 2) {
     lowerPart += repeatSpaces( spacesRequired )+ repeatCharacter(index,"*");
     if(index == 1){
       delimiter = ""
@@ -80,10 +77,10 @@ const generateLowerPart = function(height) {
 }  
 
 const generateHollowDiamond = function(height) {
-  let hollow = "";
+  let hollowDiamond = "";
   let delimiter = "\n";
-  hollow = generateUpperPart(height) + generateLowerPart(height);
-  return hollow;
+  hollowDiamond = generateUpperPart(height) + generateLowerPart(height);
+  return hollowDiamond;
 }
 
 const generateUpperAngledPart = function(height) {
@@ -171,21 +168,20 @@ const createTriangle = function(type,baseWidth){
   return triangle;
 }
 
+const emptyLine = function(breadth){
+  let spaces = repeatSpaces(breadth-2); 
+  return "*"+spaces+"*";
+}
+
 const createEmptyRectangle = function(length,breadth){
-  let firstColumn = repeatCharacter(length,"*");
-  let delimitor = "";
   let rectangle = "";
-  for(let index=0; index<breadth; index++){
-    let  row=firstColumn;
-    if(index<breadth-1 && index>0){
-      space = repeatSpaces(length-2);
-      row="*"+space+"*";
-      space="";
-    }
-    rectangle += delimitor+row;
-    delimitor="\n";
+  let row = repeatCharacter(length,"*");
+  if(breadth>2){
+  let emptyRow = emptyLine(length);
+  rectangle = Array(breadth-2).fill(emptyRow).join("\n");
+  return row+"\n"+rectangle+"\n"+row;
   }
-  return rectangle;
+  return row+"\n"+row;
 }
 
 const createAlternateRectangle = function(length,breadth){
@@ -209,10 +205,7 @@ const createFilledRectangle = function(length,breadth){
   let rectangle = "";
   let delimitor = "";
   let column = repeatCharacter(length,"*")
-  for(let index = 0; index < breadth; index++){
-    rectangle += delimitor+column;
-    delimitor = "\n";
-  }
+  rectangle = Array(breadth).fill(column).join("\n");
   return rectangle;
 }
 
