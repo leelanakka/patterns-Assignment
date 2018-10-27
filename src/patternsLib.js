@@ -50,11 +50,7 @@ const line = function(height) {
   return repeatSpaces(Math.ceil(height/2))+repeatCharacter(1,"*");
 }
 
-const topLineOfHollow = function(height) {
-  return line(height-1); 
-}
-
-const bottomLineOfHollow = function(height) {
+const edgeLineOfDiamond = function(height) {
   return line(height-1); 
 }
 
@@ -67,7 +63,7 @@ const generateUpperPart = function(height) {
     upperPart += repeatSpaces( spacesRequired )+ "*"+repeatSpaces(index)+"*";
     upperPart += delimiter;
   }
-  return topLineOfHollow(height)+delimiter+upperPart;
+  return edgeLineOfDiamond(height)+delimiter+upperPart;
 }  
 
 const generateLowerPart = function(height) {
@@ -80,7 +76,7 @@ const generateLowerPart = function(height) {
     lowerPart += delimiter;
     spacesRequired++; 
   }
-  return lowerPart+bottomLineOfHollow(height);
+  return lowerPart+edgeLineOfDiamond(height);
 }  
 
 const generateHollowDiamond = function(height) {
@@ -88,14 +84,6 @@ const generateHollowDiamond = function(height) {
   let delimiter = "\n";
   hollow = generateUpperPart(height) + generateLowerPart(height);
   return hollow;
-}
-
-const upperLineOfAngled = function(height) {
-  return line(height-1); 
-}
-
-const bottomLineOfAngled = function(height) {
-  return line(height-1); 
 }
 
 const generateUpperAngledPart = function(height) {
@@ -110,7 +98,7 @@ const generateUpperAngledPart = function(height) {
   spacesRequired--;
   upperPart += repeatSpaces( spacesRequired )+ "*"+repeatSpaces(height-2)+"*";
   upperPart += delimiter;
-  return upperLineOfAngled(height)+delimiter+upperPart;
+  return edgeLineOfDiamond(height)+delimiter+upperPart;
 }  
 
 const generateLowerAngledPart = function(height) {
@@ -122,7 +110,7 @@ const generateLowerAngledPart = function(height) {
     lowerPart += delimiter;
     spacesRequired++; 
   }
-  return lowerPart+bottomLineOfAngled(height);
+  return lowerPart+edgeLineOfDiamond(height);
 }  
 
 const generateAngledDiamond = function(height) {
@@ -147,7 +135,6 @@ const createDiamond = function(type,height){
       diamond = generateAngledDiamond(height);
       break;
   }
-  // console.log(diamond);
   return diamond;
 }
 
