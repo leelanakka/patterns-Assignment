@@ -50,7 +50,6 @@ const line = function(height) {
   return repeatSpaces(Math.ceil(height/2))+repeatCharacter("*",1);
 }
 
-
 const topLineOfHollow = function(height) {
   return line(height-1); 
 }
@@ -134,19 +133,21 @@ const generateAngledDiamond = function(height) {
 }
 
 const main = function(){
-  let typeOfDiamond = process.argv[2];
+  let type= process.argv[2];
   let height = process.argv[3];
   if(height%2 == 0){
     height ++
   }
-  if(typeOfDiamond == "filled") {
-    diamond = generateFilledDiamond(height);
-  }
-  if(typeOfDiamond == "hollow") {
-    diamond = generateHollowDiamond(height);
-  }
-  if(typeOfDiamond == "angled") {
-    diamond = generateAngledDiamond(height);
+  switch(type){
+    case "filled":
+      diamond = generateFilledDiamond(height);
+      break;
+    case "hollow":
+      diamond = generateHollowDiamond(height);
+      break;
+    case "angled":
+      diamond = generateAngledDiamond(height);
+      break;
   }
   console.log(diamond);
 }
