@@ -1,9 +1,11 @@
+const makeCycler = require('./lib.js').makeCycler;
+
 const repeatSpaces = function(length){
   return repeatCharacter(length," ");
 }
 
 const repeatCharacter = function(numberOfTimes,character) {
- let characterLine = Array(numberOfTimes).fill(character).join("");
+  let characterLine = Array(numberOfTimes).fill(character).join("");
   return characterLine;
 }
 
@@ -177,9 +179,9 @@ const createEmptyRectangle = function(length,breadth){
   let rectangle = "";
   let row = repeatCharacter(length,"*");
   if(breadth>2){
-  let emptyRow = emptyLine(length);
-  rectangle = Array(breadth-2).fill(emptyRow).join("\n");
-  return row+"\n"+rectangle+"\n"+row;
+    let emptyRow = emptyLine(length);
+    rectangle = Array(breadth-2).fill(emptyRow).join("\n");
+    return row+"\n"+rectangle+"\n"+row;
   }
   return row+"\n"+row;
 }
@@ -187,23 +189,14 @@ const createEmptyRectangle = function(length,breadth){
 const createAlternateRectangle = function(length,breadth){
   let firstRow = repeatCharacter(length,"*");
   let alternateLines = repeatCharacter(length,"-");
-  let rectangle="";
-  let delimitor="";
-  for(let index = 1; index <= breadth; index++){
-    if(index%2 == 0){
-      rectangle+=delimitor+alternateLines;
-    }
-    else{
-      rectangle += delimitor+firstRow;
-    }
-    delimitor="\n";
-  }
+  let cycleRows = makeCycler([firstRow,alternateLines]);
+  let randomArray = Array(breadth).fill("9");
+  let rectangle = randomArray.map(cycleRows).join("\n");
   return rectangle;
 }
 
 const createFilledRectangle = function(length,breadth){
   let rectangle = "";
-  let delimitor = "";
   let column = repeatCharacter(length,"*")
   rectangle = Array(breadth).fill(column).join("\n");
   return rectangle;
