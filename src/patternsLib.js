@@ -70,22 +70,11 @@ const generateFilledDiamond = function(height) {
 }
 
 const createDiamond = function(type,height){
-  let diamond;
   if(height%2 == 0){
     height ++;
   }
-  switch(type){
-    case "filled":
-      diamond = generateFilledDiamond(height);
-      break;
-    case "hollow":
-      diamond = generateHollowDiamond(height);
-      break;
-    case "angled":
-      diamond = generateAngledDiamond(height);
-      break;
-  }
-  return diamond;
+  let diamond = {filled : generateFilledDiamond, hollow : generateHollowDiamond , angled : generateAngledDiamond}
+  return diamond[type](height);
 }
 
 const createLeftAligned = function(baseWidth){
@@ -112,6 +101,7 @@ const createRightAligned = function(baseWidth){
 }
 
 const createTriangle = function(type,baseWidth){
+  let triangle;
   if(type == "right"){
     triangle = createRightAligned(baseWidth);
   }
@@ -154,20 +144,8 @@ const createFilledRectangle = function(length,breadth){
 }
 
 const createRectangle = function(type,length,breadth){
-  switch (type){
-    case "alternating":
-      rectangle = createAlternateRectangle(length,breadth);
-      break;
-    case "empty":
-      rectangle = createEmptyRectangle(length,breadth);
-      break;
-    case "filled":
-      rectangle = createFilledRectangle(length,breadth);
-      break;
-    default :
-      rectangle = "please enter correct typeOfRectangle";
-  }
-  return rectangle;
+  let rectangle = {filled: createFilledRectangle, empty:createEmptyRectangle, alternating:createAlternateRectangle}
+  return rectangle[type](length,breadth);
 }
 
 exports.createRectangle = createRectangle;
