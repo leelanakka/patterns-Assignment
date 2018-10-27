@@ -9,119 +9,70 @@ const repeatCharacter = function(numberOfTimes,character) {
   return characterLine;
 }
 
-const generateUpperFilledPart = function(height) {
+const generateDiamondUpperPart = function(height,firstCharacter,lastCharacter,character) {
   let upperPart = "";
   let delimiter = "\n";
   let spacesRequired = Math.floor(height/2);
-  for(let index = 1; index <= height; index+=2) {
-    upperPart += repeatSpaces( spacesRequired )+ repeatCharacter(index,"*"); 
-    upperPart += delimiter;
+  for(let index = 1; index <= height-4; index+=2) {
     spacesRequired--; 
+    upperPart += repeatCharacter(spacesRequired," ")+ firstCharacter+repeatCharacter(index,character)+lastCharacter;
+    upperPart += delimiter;
   }
-  return upperPart;
-}  
+  return edgeLineOfDiamond(height)+delimiter+upperPart;
+}
 
-const generateLowerFilledPart = function(height) {
+const generateLowerPart = function(height,firstCharacter,lastCharacter,character){
   let lowerPart = "";
   let spacesRequired = 1;
   let delimiter = "\n";
-  for(let index = height-2; index >= 1 ; index -= 2) {
-    lowerPart += repeatSpaces( spacesRequired )+ repeatCharacter(index,"*");
-    if(index == 1){
-      delimiter = ""
-    }
+  let bottomLine = repeatSpaces(Math.ceil(height/2))+repeatCharacter(1,"*");
+  for(let index = height-4; index >=1 ; index-=2) {
+    lowerPart += repeatSpaces( spacesRequired )+ firstCharacter+repeatCharacter(index,character)+lastCharacter;
     lowerPart += delimiter;
     spacesRequired++; 
   }
-  return lowerPart;
-}  
-
-const generateFilledDiamond = function(height) {
-  let diamond = "";
-  let upperPart = generateUpperFilledPart(height);
-  let lowerPart = generateLowerFilledPart(height);
-  diamond = upperPart + lowerPart; 
-  return diamond;
+  return lowerPart+edgeLineOfDiamond(height);
 }
 
-
 const line = function(height) {
-  return repeatSpaces(Math.ceil(height/2))+repeatCharacter(1,"*");
+  return repeatSpaces(Math.ceil(height/2))+"*" ;
 }
 
 const edgeLineOfDiamond = function(height) {
   return line(height-1); 
 }
 
-const generateUpperPart = function(height) {
-  let upperPart = "";
-  let delimiter = "\n";
-  let spacesRequired = Math.floor(height/2);
-  for(let index = 1; index <= height-2; index+=2) {
-    spacesRequired--; 
-    upperPart += repeatSpaces( spacesRequired )+ "*"+repeatSpaces(index)+"*";
-    upperPart += delimiter;
-  }
-  return edgeLineOfDiamond(height)+delimiter+upperPart;
-}  
-
-const generateLowerPart = function(height) {
-  let lowerPart = "";
-  let spacesRequired = 1;
-  let delimiter = "\n";
-  let bottomLine = repeatSpaces(Math.ceil(height/2))+repeatCharacter(1,"*");
-  for(let index = height-4; index >=1 ; index-=2) {
-    lowerPart += repeatSpaces( spacesRequired )+ "*"+repeatSpaces(index)+"*";
-    lowerPart += delimiter;
-    spacesRequired++; 
-  }
-  return lowerPart+edgeLineOfDiamond(height);
-}  
+const middlePart = function(width,character){
+  let spaces = repeatCharacter(width-2,character);
+  return "*"+spaces+"*";
+}
 
 const generateHollowDiamond = function(height) {
   let hollowDiamond = "";
   let delimiter = "\n";
-  hollowDiamond = generateUpperPart(height) + generateLowerPart(height);
+  hollowDiamond = generateDiamondUpperPart(height,"*","*"," ")+middlePart(height," ")+delimiter+generateLowerPart(height,"*","*"," ");
   return hollowDiamond;
 }
-
-const generateUpperAngledPart = function(height) {
-  let upperPart = "";
-  let delimiter = "\n";
-  let spacesRequired = Math.floor(height/2);
-  for(let index = 1; index <= height-4; index+=2) {
-    spacesRequired--; 
-    upperPart += repeatSpaces( spacesRequired )+ "/"+repeatSpaces(index)+"\\";
-    upperPart += delimiter;
-  }
-  spacesRequired--;
-  upperPart += repeatSpaces( spacesRequired )+ "*"+repeatSpaces(height-2)+"*";
-  upperPart += delimiter;
-  return edgeLineOfDiamond(height)+delimiter+upperPart;
-}  
-
-const generateLowerAngledPart = function(height) {
-  let lowerPart = "";
-  let spacesRequired = 1;
-  let delimiter = "\n";
-  for(let index = height - 4; index >= 1 ; index -= 2) {
-    lowerPart += repeatSpaces( spacesRequired )+  "\\"+repeatSpaces(index)+"/";
-    lowerPart += delimiter;
-    spacesRequired++; 
-  }
-  return lowerPart+edgeLineOfDiamond(height);
-}  
 
 const generateAngledDiamond = function(height) {
   let hollow = "";
   let delimiter = "\n";
-  hollow = generateUpperAngledPart(height) + generateLowerAngledPart(height);
+  hollow = generateDiamondUpperPart(height,"/","\\"," ") +middlePart(height," ")+delimiter+ generateLowerPart(height,"\\","/"," ");
   return hollow;
 }
 
+const generateFilledDiamond = function(height) {
+  let diamond = "";
+  let upperPart = generateDiamondUpperPart(height,"*","*","*");
+  let lowerPart = generateLowerPart(height,"*","*","*");
+  diamond = upperPart + middlePart(height,"*")+"\n"+lowerPart; 
+  return diamond;
+}
+
 const createDiamond = function(type,height){
+  let diamond;
   if(height%2 == 0){
-    height ++
+    height ++;
   }
   switch(type){
     case "filled":
@@ -141,7 +92,7 @@ const createLeftAligned = function(baseWidth){
   let triangle="";
   let delimiter="";
   for(let index=0; index<baseWidth; index++){
-    rows = repeatCharacter(index+1,"*")
+    rows = repeatCharacter(index+1,"*");
     triangle = triangle+delimiter+rows;
     delimiter = "\n";
   }
@@ -153,7 +104,7 @@ const createRightAligned = function(baseWidth){
   let delimiter = "";
   for (let index = 0; index < baseWidth; index++) {
     spaces = repeatCharacter(baseWidth-index-1," ");
-    stars = repeatCharacter(index+1,"*")
+    stars = repeatCharacter(index+1,"*");
     triangle += delimiter + spaces + stars;
     delimiter = "\n";
   }
@@ -197,7 +148,7 @@ const createAlternateRectangle = function(length,breadth){
 
 const createFilledRectangle = function(length,breadth){
   let rectangle = "";
-  let column = repeatCharacter(length,"*")
+  let column = repeatCharacter(length,"*");
   rectangle = Array(breadth).fill(column).join("\n");
   return rectangle;
 }
@@ -205,7 +156,7 @@ const createFilledRectangle = function(length,breadth){
 const createRectangle = function(type,length,breadth){
   switch (type){
     case "alternating":
-      rectangle = createAlternateRectangle(length,breadth)
+      rectangle = createAlternateRectangle(length,breadth);
       break;
     case "empty":
       rectangle = createEmptyRectangle(length,breadth);
