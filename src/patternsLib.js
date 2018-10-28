@@ -15,7 +15,7 @@ const generateDiamondUpperPart = function(height,firstCharacter,lastCharacter,ch
   let spacesRequired = Math.floor(height/2);
   for(let index = 1; index <= height-4; index+=2) {
     spacesRequired--; 
-    upperPart += repeatCharacter(spacesRequired," ")+ firstCharacter+repeatCharacter(index,character)+lastCharacter;
+    upperPart += repeatSpaces(spacesRequired)+ firstCharacter+repeatCharacter(index,character)+lastCharacter+repeatSpaces(spacesRequired);
     upperPart += delimiter;
   }
   return edgeLineOfDiamond(height)+delimiter+upperPart;
@@ -27,7 +27,7 @@ const generateLowerPart = function(height,firstCharacter,lastCharacter,character
   let delimiter = "\n";
   let bottomLine = repeatSpaces(Math.ceil(height/2))+repeatCharacter(1,"*");
   for(let index = height-4; index >=1 ; index-=2) {
-    lowerPart += repeatSpaces( spacesRequired )+ firstCharacter+repeatCharacter(index,character)+lastCharacter;
+    lowerPart += repeatSpaces( spacesRequired )+ firstCharacter+repeatCharacter(index,character)+lastCharacter+repeatSpaces(spacesRequired);
     lowerPart += delimiter;
     spacesRequired++; 
   }
@@ -35,11 +35,11 @@ const generateLowerPart = function(height,firstCharacter,lastCharacter,character
 }
 
 const line = function(height) {
-  return repeatSpaces(Math.ceil(height/2))+"*" ;
+  return repeatSpaces(Math.ceil(height/2))+"*"+repeatSpaces(Math.ceil(height/2));
 }
 
 const edgeLineOfDiamond = function(height) {
-  return line(height-1); 
+  return line(height-1);
 }
 
 const middlePart = function(width,character){
@@ -47,26 +47,34 @@ const middlePart = function(width,character){
   return "*"+spaces+"*";
 }
 
+const joinLines = function(upper,middle,lower){
+  return upper+middle+"\n"+lower;
+}
+
 const generateHollowDiamond = function(height) {
   let hollowDiamond = "";
   let delimiter = "\n";
-  hollowDiamond = generateDiamondUpperPart(height,"*","*"," ")+middlePart(height," ")+delimiter+generateLowerPart(height,"*","*"," ");
-  return hollowDiamond;
+  let upper = generateDiamondUpperPart(height,"*","*"," ");
+  let middle = middlePart(height," ")
+  let lower = generateLowerPart(height,"*","*"," ");
+  return joinLines(upper,middle,lower);
 }
 
 const generateAngledDiamond = function(height) {
   let hollow = "";
   let delimiter = "\n";
-  hollow = generateDiamondUpperPart(height,"/","\\"," ") +middlePart(height," ")+delimiter+ generateLowerPart(height,"\\","/"," ");
-  return hollow;
+  let upper = generateDiamondUpperPart(height,"/","\\"," ");
+  let middle = middlePart(height," ");
+  let lower = generateLowerPart(height,"\\","/",    " ");
+  return joinLines(upper,middle,lower);
 }
 
 const generateFilledDiamond = function(height) {
   let diamond = "";
-  let upperPart = generateDiamondUpperPart(height,"*","*","*");
-  let lowerPart = generateLowerPart(height,"*","*","*");
-  diamond = upperPart + middlePart(height,"*")+"\n"+lowerPart; 
-  return diamond;
+  let upper= generateDiamondUpperPart(height,"*","*","*");
+  let lower= generateLowerPart(height,"*","*","*");
+  let middle= middlePart(height,"*");
+  return joinLines(upper,middle,lower);
 }
 
 const createDiamond = function(type,height){
