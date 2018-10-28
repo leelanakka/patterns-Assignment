@@ -86,37 +86,30 @@ const createDiamond = function(type,height){
 }
 
 const createLeftAligned = function(baseWidth){
-  let triangle="";
-  let delimiter="";
+  let triangle=[];
   for(let index=0; index<baseWidth; index++){
     rows = repeatCharacter(index+1,"*");
-    triangle = triangle+delimiter+rows;
-    delimiter = "\n";
+    triangle.push(rows)
   }
   return triangle;
 }
 
 const createRightAligned = function(baseWidth){
-  let triangle = "";
-  let delimiter = "";
+  let triangle = [];
   for (let index = 0; index < baseWidth; index++) {
     spaces = repeatCharacter(baseWidth-index-1," ");
     stars = repeatCharacter(index+1,"*");
-    triangle += delimiter + spaces + stars;
-    delimiter = "\n";
+    triangle.push(spaces+stars);
   }
   return triangle;
 }
 
-const createTriangle = function(type,baseWidth){
-  let triangle;
-  if(type == "right"){
-    triangle = createRightAligned(baseWidth);
-  }
-  if(type == "left"){
-    triangle = createLeftAligned(baseWidth);
-  }
-  return triangle;
+const createReverseRightAligned = function(baseWidth){
+  return createRightAligned(baseWidth).reverse();
+}
+
+const createReverseLeftAligned = function(baseWidth){
+  return createLeftAligned(baseWidth).reverse();
 }
 
 const emptyLine = function(breadth){
@@ -152,8 +145,16 @@ const createFilledRectangle = function(length,breadth){
 }
 
 const createRectangle = function(type,length,breadth){
-  let rectangle = {filled: createFilledRectangle, empty:createEmptyRectangle, alternating:createAlternateRectangle}
+  let rectangle = {filled: createFilledRectangle, empty:createEmptyRectangle, alternating:createAlternateRectangle};
   return rectangle[type](length,breadth);
+}
+
+const createTriangle = function(type,baseWidth){
+  let triangle = {right : createRightAligned, 
+    left : createLeftAligned,
+    rightReverse : createReverseRightAligned,
+    leftReverse : createReverseLeftAligned };
+  return triangle[type](baseWidth).join("\n");
 }
 
 exports.createRectangle = createRectangle;
