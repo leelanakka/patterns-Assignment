@@ -77,11 +77,10 @@ const generateFilledDiamond = function(height) {
   return joinLines(upper,middle,lower);
 }
 
-
 const createLeftAligned = function(baseWidth){
   let triangle=[];
   for(let index=0; index<baseWidth; index++){
-    rows = repeatCharacter(index+1,"*");
+    rows = repeatCharacter(index+1,"*")+repeatSpaces(baseWidth-(index+1));
     triangle.push(rows)
   }
   return triangle;
@@ -97,12 +96,20 @@ const createRightAligned = function(baseWidth){
   return triangle;
 }
 
+const createRightAlignedTriangle = function(baseWidth){
+  return createRightAligned(baseWidth).join("\n");
+}
+
+const createLeftAlignedTriangle = function(baseWidth){
+  return createLeftAligned(baseWidth).join("\n");
+}
+
 const createReverseRightAligned = function(baseWidth){
-  return createRightAligned(baseWidth).reverse();
+  return createRightAligned(baseWidth).reverse().join("\n");
 }
 
 const createReverseLeftAligned = function(baseWidth){
-  return createLeftAligned(baseWidth).reverse();
+  return createLeftAligned(baseWidth).reverse().join("\n");
 }
 
 const emptyLine = function(breadth){
@@ -137,9 +144,25 @@ const createFilledRectangle = function(length,breadth){
   return rectangle;
 }
 
-module.exports ={repeatSpaces, makeCycler, repeatCharacter, 
-  generateDiamondUpperPart, generateLowerPart, line,
-  edgeLineOfDiamond, middlePart, joinLines, generateHollowDiamond,
-  generateAngledDiamond, generateFilledDiamond, createLeftAligned,
-  createRightAligned, createReverseRightAligned, createReverseLeftAligned,
-  emptyLine, createEmptyRectangle, createAlternateRectangle, createFilledRectangle};
+module.exports ={repeatSpaces,
+  makeCycler,
+  repeatCharacter,
+  generateDiamondUpperPart,
+  generateLowerPart,
+  line,
+  edgeLineOfDiamond,
+  middlePart,
+  joinLines,
+  generateHollowDiamond,
+  generateAngledDiamond,
+  generateFilledDiamond,
+  createLeftAligned,
+  createRightAligned,
+  createReverseRightAligned,
+  createReverseLeftAligned,
+  emptyLine,
+  createEmptyRectangle,
+  createAlternateRectangle,
+  createFilledRectangle,
+  createLeftAlignedTriangle,
+  createRightAlignedTriangle};

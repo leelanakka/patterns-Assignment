@@ -3,7 +3,9 @@ const {repeatSpaces, makeCycler, repeatCharacter,
   edgeLineOfDiamond, middlePart, joinLines, generateHollowDiamond,
   generateAngledDiamond, generateFilledDiamond, createLeftAligned,
   createRightAligned, createReverseRightAligned, createReverseLeftAligned,
-  emptyLine, createEmptyRectangle, createAlternateRectangle, createFilledRectangle} = require('./patternsUtil.js')
+  emptyLine, createEmptyRectangle, createAlternateRectangle, createFilledRectangle,
+  createLeftAlignedTriangle,
+  createRightAlignedTriangle } = require('./patternsUtil.js')
 
 const createRectangle = function(type,length,breadth){
   let rectangle = {filled: createFilledRectangle, empty:createEmptyRectangle, alternating:createAlternateRectangle};
@@ -11,11 +13,11 @@ const createRectangle = function(type,length,breadth){
 }
 
 const createTriangle = function(type,baseWidth){
-  let triangle = {right : createRightAligned, 
-    left : createLeftAligned,
+  let triangle = {right : createRightAlignedTriangle, 
+    left : createLeftAlignedTriangle,
     rightReverse : createReverseRightAligned,
     leftReverse : createReverseLeftAligned };
-  return triangle[type](baseWidth).join("\n");
+  return triangle[type](baseWidth);
 }
 
 const createDiamond = function(type,height){
