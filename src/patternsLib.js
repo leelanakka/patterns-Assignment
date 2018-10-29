@@ -1,14 +1,30 @@
-const {repeatSpaces, makeCycler, repeatCharacter, 
-  generateDiamondUpperPart, generateLowerPart, line,
-  edgeLineOfDiamond, middlePart, joinLines, generateHollowDiamond,
-  generateAngledDiamond, generateFilledDiamond, createLeftAligned,
-  createRightAligned, createReverseRightAligned, createReverseLeftAligned,
-  emptyLine, createEmptyRectangle, createAlternateRectangle, createFilledRectangle,
+const {repeatSpaces,
+  makeCycler,
+  repeatCharacter,
+  generateDiamondUpperPart,
+  generateLowerPart,
+  line,
+  edgeLineOfDiamond,
+  middlePart,
+  joinLines,
+  generateHollowDiamond,
+  generateAngledDiamond,
+  generateFilledDiamond,
+  createLeftAligned,
+  createRightAligned,
+  createReverseRightAligned,
+  createReverseLeftAligned,
+  emptyLine,
+  createEmptyRectangle,
+  createAlternateRectangle,
+  createFilledRectangle,
   createLeftAlignedTriangle,
   createRightAlignedTriangle } = require('./patternsUtil.js')
 
 const createRectangle = function(type,length,breadth){
-  let rectangle = {filled: createFilledRectangle, empty:createEmptyRectangle, alternating:createAlternateRectangle};
+  let rectangle = {filled: createFilledRectangle,
+    empty:createEmptyRectangle,
+    alternating:createAlternateRectangle};
   return rectangle[type](length,breadth);
 }
 
@@ -24,7 +40,9 @@ const createDiamond = function(type,height){
   if(height%2 == 0){
     height ++;
   }
-  let diamond = {filled : generateFilledDiamond, hollow : generateHollowDiamond , angled : generateAngledDiamond}
+  let diamond = {filled : generateFilledDiamond,
+    hollow : generateHollowDiamond,
+    angled : generateAngledDiamond};
   return diamond[type](height);
 }
 

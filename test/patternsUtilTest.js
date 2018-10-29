@@ -123,4 +123,5 @@ assert.equal(createLeftAlignedTriangle(4),"*   \n**  \n*** \n****");
 assert.equal(createRightAlignedTriangle(1),"*");
 assert.equal(createRightAlignedTriangle(2)," *\n**");
 assert.equal(createRightAlignedTriangle(5),"    *\n   **\n  ***\n ****\n*****");
+
 console.log("all tests passed");

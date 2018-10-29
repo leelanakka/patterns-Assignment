@@ -12,10 +12,14 @@ const repeatCharacter = function(numberOfTimes,character) {
 const generateDiamondUpperPart = function(height,firstCharacter,lastCharacter,character) {
   let upperPart = "";
   let delimiter = "\n";
+  let spaces;
+  let repeatString;
   let spacesRequired = Math.floor(height/2);
   for(let index = 1; index <= height-4; index+=2) {
     spacesRequired--; 
-    upperPart += repeatSpaces(spacesRequired)+ firstCharacter+repeatCharacter(index,character)+lastCharacter+repeatSpaces(spacesRequired);
+    spaces = repeatSpaces(spacesRequired);
+    repeatString = repeatCharacter(index,character);
+    upperPart += spaces+firstCharacter+repeatString+lastCharacter+repeatSpaces(spacesRequired);
     upperPart += delimiter;
   }
   return edgeLineOfDiamond(height)+delimiter+upperPart;
@@ -25,9 +29,13 @@ const generateLowerPart = function(height,firstCharacter,lastCharacter,character
   let lowerPart = "";
   let spacesRequired = 1;
   let delimiter = "\n";
+  let spaces;
+  let repeatString;
   let bottomLine = repeatSpaces(Math.ceil(height/2))+repeatCharacter(1,"*");
   for(let index = height-4; index >=1 ; index-=2) {
-    lowerPart += repeatSpaces( spacesRequired )+ firstCharacter+repeatCharacter(index,character)+lastCharacter+repeatSpaces(spacesRequired);
+    spaces = repeatSpaces(spacesRequired);
+    repeatString = repeatCharacter(index,character);
+    lowerPart += spaces+ firstCharacter+repeatString+lastCharacter+repeatSpaces(spacesRequired);
     lowerPart += delimiter;
     spacesRequired++; 
   }
@@ -81,7 +89,7 @@ const createLeftAligned = function(baseWidth){
   let triangle=[];
   for(let index=0; index<baseWidth; index++){
     rows = repeatCharacter(index+1,"*")+repeatSpaces(baseWidth-(index+1));
-    triangle.push(rows)
+    triangle.push(rows);
   }
   return triangle;
 }
