@@ -21,7 +21,8 @@ const {repeatSpaces,
   createAlternateRectangle,
   createFilledRectangle,
   createLeftAlignedTriangle,
-  createRightAlignedTriangle} = require('../src/patternsUtil.js');
+  createRightAlignedTriangle,
+  fillNewArray} = require('../src/patternsUtil.js');
 
 assert.equal(repeatSpaces(2),"  ");
 assert.equal(repeatSpaces(1)," ");
@@ -98,22 +99,22 @@ assert.equal(emptyLine(3),"* *")
 assert.equal(emptyLine(5),"*   *")
 assert.equal(emptyLine(9),"*       *")
 
-assert.equal(createEmptyRectangle(1,2),"*\n*");
-assert.equal(createEmptyRectangle(2,2),"**\n**");
-assert.equal(createEmptyRectangle(3,2),"***\n***");
-assert.equal(createEmptyRectangle(3,3),"***\n* *\n***");
-assert.equal(createEmptyRectangle(3,4),"***\n* *\n* *\n***");
-assert.equal(createEmptyRectangle(4,3),"****\n*  *\n****");
+assert.deepEqual(createEmptyRectangle(1,2),["*","*"]);
+assert.deepEqual(createEmptyRectangle(2,2),["**","**"]);
+assert.deepEqual(createEmptyRectangle(3,2),["***","***"]);
+assert.deepEqual(createEmptyRectangle(3,3),["***","* *","***"]);
+assert.deepEqual(createEmptyRectangle(3,4),["***","* *","* *","***"]);
+assert.deepEqual(createEmptyRectangle(4,3),["****","*  *","****"]);
 
-assert.equal(createAlternateRectangle(1,1),"*")
-assert.equal(createAlternateRectangle(1,2),"*\n-")
-assert.equal(createAlternateRectangle(2,2),"**\n--")
-assert.equal(createAlternateRectangle(3,3),"***\n---\n***")
+assert.deepEqual(createAlternateRectangle(1,1),["*"])
+assert.deepEqual(createAlternateRectangle(1,2),["*","-"])
+assert.deepEqual(createAlternateRectangle(2,2),["**","--"])
+assert.deepEqual(createAlternateRectangle(3,3),["***","---","***"])
 
-assert.equal(createFilledRectangle(1,1),"*");
-assert.equal(createFilledRectangle(2,1),"**");
-assert.equal(createFilledRectangle(2,2),"**\n**");
-assert.equal(createFilledRectangle(10,4),"**********\n**********\n**********\n**********");
+assert.deepEqual(createFilledRectangle(1,1),["*"]);
+assert.deepEqual(createFilledRectangle(2,1),["**"]);
+assert.deepEqual(createFilledRectangle(2,2),["**","**"]);
+assert.deepEqual(createFilledRectangle(10,4),["**********","**********","**********","**********"]);
 
 assert.equal(createLeftAlignedTriangle(1),"*");
 assert.equal(createLeftAlignedTriangle(2),"* \n**");
@@ -124,4 +125,8 @@ assert.equal(createRightAlignedTriangle(1),"*");
 assert.equal(createRightAlignedTriangle(2)," *\n**");
 assert.equal(createRightAlignedTriangle(5),"    *\n   **\n  ***\n ****\n*****");
 
+assert.deepEqual(fillNewArray(1,"*"),["*"]);
+assert.deepEqual(fillNewArray(2,"*"),["*","*"]);
+assert.deepEqual(fillNewArray(2,"#"),["#","#"]);
+assert.deepEqual(fillNewArray(5,"#"),["#","#","#","#","#"]);
 console.log("all tests passed");

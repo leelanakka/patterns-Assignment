@@ -25,7 +25,7 @@ const createRectangle = function(type,length,breadth){
   let rectangle = {filled: createFilledRectangle,
     empty:createEmptyRectangle,
     alternating:createAlternateRectangle};
-  return rectangle[type](length,breadth);
+  return rectangle[type](length,breadth).join("\n");
 }
 
 const createTriangle = function(type,baseWidth){

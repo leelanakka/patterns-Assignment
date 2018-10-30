@@ -4,8 +4,12 @@ const repeatSpaces = function(length){
   return repeatCharacter(length," ");
 }
 
+const fillNewArray = function(length,element) {
+  return new Array(length).fill(element)//.join("");
+}
+
 const repeatCharacter = function(numberOfTimes,character) {
-  let characterLine = Array(numberOfTimes).fill(character).join("");
+  let characterLine = fillNewArray(numberOfTimes,character).join("");
   return characterLine;
 }
 
@@ -126,29 +130,33 @@ const emptyLine = function(breadth){
 }
 
 const createEmptyRectangle = function(length,breadth){
-  let rectangle = "";
+  let rectangle = [];;
   let row = repeatCharacter(length,"*");
   if(breadth>2){
     let emptyRow = emptyLine(length);
-    rectangle = Array(breadth-2).fill(emptyRow).join("\n");
-    return row+"\n"+rectangle+"\n"+row;
+    rectangle = fillNewArray(breadth-2,emptyRow);
+    rectangle.unshift(row);
+    rectangle.push(row);
+    return rectangle;
   }
-  return row+"\n"+row;
+  rectangle.push(row);
+  rectangle.push(row);
+  return rectangle;
 }
 
 const createAlternateRectangle = function(length,breadth){
   let firstRow = repeatCharacter(length,"*");
   let alternateLines = repeatCharacter(length,"-");
   let cycleRows = makeCycler([firstRow,alternateLines]);
-  let randomArray = Array(breadth).fill("9");
-  let rectangle = randomArray.map(cycleRows).join("\n");
+  let randomArray = fillNewArray(breadth,9);
+  let rectangle = randomArray.map(cycleRows);
   return rectangle;
 }
 
 const createFilledRectangle = function(length,breadth){
   let rectangle = "";
   let column = repeatCharacter(length,"*");
-  rectangle = Array(breadth).fill(column).join("\n");
+  rectangle = fillNewArray(breadth,column);
   return rectangle;
 }
 
@@ -173,4 +181,5 @@ module.exports ={repeatSpaces,
   createAlternateRectangle,
   createFilledRectangle,
   createLeftAlignedTriangle,
-  createRightAlignedTriangle};
+  createRightAlignedTriangle,
+  fillNewArray};
