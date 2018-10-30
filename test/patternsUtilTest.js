@@ -31,20 +31,20 @@ assert.equal(repeatCharacter(1,"*"),"*");
 assert.equal(repeatCharacter(2,"*"),"**");  
 assert.equal(repeatCharacter(2,"#"),"##");  
 
-assert.equal(generateDiamondUpperPart(4,"*","*","*"),'  *  \n');
-assert.equal(generateDiamondUpperPart(1,"*","*","*"),'*\n');
-assert.equal(generateDiamondUpperPart(2,"*","*","*"),' * \n');
-assert.equal(generateDiamondUpperPart(6,"*","*","*"),'   *   \n  ***  \n');
-assert.equal(generateDiamondUpperPart(6,"*"," ","*"),'   *   \n  **   \n');
-assert.equal(generateDiamondUpperPart(7,"*"," ","*"),'   *   \n  **   \n ****  \n');
-assert.equal(generateDiamondUpperPart(7,"*","*"," "),'   *   \n  * *  \n *   * \n');
-assert.equal(generateDiamondUpperPart(7,"/","\\"," "),'   *   \n  / \\  \n /   \\ \n');
+assert.deepEqual(generateDiamondUpperPart(4,"*","*","*"),['  *  ']);
+assert.deepEqual(generateDiamondUpperPart(1,"*","*","*"),['*']);
+assert.deepEqual(generateDiamondUpperPart(2,"*","*","*"),[' * ']);
+assert.deepEqual(generateDiamondUpperPart(6,"*","*","*"),['   *   ','  ***  ']);
+assert.deepEqual(generateDiamondUpperPart(6,"*"," ","*"),[ '   *   ', '  **   ' ]);
+assert.deepEqual(generateDiamondUpperPart(7,"*"," ","*"),[ '   *   ', '  **   ', ' ****  ' ]);
+assert.deepEqual(generateDiamondUpperPart(7,"*","*"," "),[ '   *   ', '  * *  ', ' *   * ' ]);
+assert.deepEqual(generateDiamondUpperPart(7,"/","\\"," "),[ '   *   ', '  / \\  ', ' /   \\ ' ]);
 
 assert.equal(generateLowerPart(4,"*","*","*"),'  *  ');
 assert.equal(generateLowerPart(1,"*","*","*"),'*');
-assert.equal(generateLowerPart(7,"*","*","*"),' ***** \n  ***  \n   *   ');
-assert.equal(generateLowerPart(7,"\\","/"," "),' \\   / \n  \\ /  \n   *   ');
-assert.equal(generateLowerPart(7,"*","*"," "),' *   * \n  * *  \n   *   ');
+assert.deepEqual(generateLowerPart(7,"*","*","*"),[ ' ***** ', '  ***  ', '   *   ' ]);
+assert.deepEqual(generateLowerPart(7,"\\","/"," "),[ ' \\   / ', '  \\ /  ', '   *   ' ]);
+assert.deepEqual(generateLowerPart(7,"*","*"," "),[ ' *   * ', '  * *  ', '   *   ' ]);
 
 assert.equal(line(3),'  *  ');
 assert.equal(line(2),' * ');
@@ -60,10 +60,10 @@ assert.equal(middlePart(5," "),'*   *');
 assert.equal(middlePart(5,"$"),'*$$$*');
 assert.equal(middlePart(2,"$"),'**');
 
-assert.deepEqual(joinLines("***","***","***"),"******\n***");
-assert.deepEqual(joinLines("*","*","*"),"**\n*");
-assert.deepEqual(joinLines("/","*","\\"),"/*\n\\");
-assert.deepEqual(joinLines(" ","*","  ")," *\n  ");
+assert.deepEqual(joinLines(["***"],["***"],["***"]),"***\n***\n***");
+assert.deepEqual(joinLines(["*"],["*"],["*"]),"*\n*\n*");
+assert.deepEqual(joinLines(["/"],["*"],["\\"]),"/\n*\n\\");
+assert.deepEqual(joinLines([" "],["*"],["  "])," \n*\n  ");
 
 assert.deepEqual(generateHollowDiamond(2),' * \n**\n * ');
 assert.deepEqual(generateHollowDiamond(5),'  *  \n * * \n*   *\n * * \n  *  ');
