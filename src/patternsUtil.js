@@ -5,7 +5,7 @@ const repeatSpaces = function(length){
 }
 
 const fillNewArray = function(length,element) {
-  return new Array(length).fill(element)//.join("");
+  return new Array(length).fill(element);
 }
 
 const repeatCharacter = function(numberOfTimes,character) {
@@ -19,14 +19,16 @@ const generateDiamondUpperPart = function(height,firstCharacter,lastCharacter,ch
   let spaces;
   let repeatString;
   let spacesRequired = Math.floor(height/2);
+  let diamond = [];
   for(let index = 1; index <= height-4; index+=2) {
     spacesRequired--; 
     spaces = repeatSpaces(spacesRequired);
     repeatString = repeatCharacter(index,character);
-    upperPart += spaces+firstCharacter+repeatString+lastCharacter+repeatSpaces(spacesRequired);
-    upperPart += delimiter;
+    upperPart = spaces+firstCharacter+repeatString+lastCharacter+repeatSpaces(spacesRequired);
+    diamond.push(upperPart);
   }
-  return edgeLineOfDiamond(height)+delimiter+upperPart;
+  diamond.unshift(edgeLineOfDiamond(height));
+  return diamond;
 }
 
 const generateLowerPart = function(height,firstCharacter,lastCharacter,character){
@@ -35,15 +37,16 @@ const generateLowerPart = function(height,firstCharacter,lastCharacter,character
   let delimiter = "\n";
   let spaces;
   let repeatString;
+  let diamond = [];
   let bottomLine = repeatSpaces(Math.ceil(height/2))+repeatCharacter(1,"*");
   for(let index = height-4; index >=1 ; index-=2) {
     spaces = repeatSpaces(spacesRequired);
     repeatString = repeatCharacter(index,character);
-    lowerPart += spaces+ firstCharacter+repeatString+lastCharacter+repeatSpaces(spacesRequired);
-    lowerPart += delimiter;
+    lowerPart = spaces+ firstCharacter+repeatString+lastCharacter+repeatSpaces(spacesRequired);
+    diamond.push(lowerPart);
     spacesRequired++; 
   }
-  return lowerPart+edgeLineOfDiamond(height);
+  return diamond.concat(edgeLineOfDiamond(height));
 }
 
 const line = function(height) {
@@ -56,11 +59,16 @@ const edgeLineOfDiamond = function(height) {
 
 const middlePart = function(width,character){
   let spaces = repeatCharacter(width-2,character);
-  return "*"+spaces+"*";
+  let diamond = [];
+  middle =  "*"+spaces+"*";
+  diamond.push(middle)
+  return diamond;
 }
 
 const joinLines = function(upper,middle,lower){
-  return upper+middle+"\n"+lower;
+  let diamond = upper.concat(middle);
+  diamond = diamond.concat(lower);
+  return diamond.join("\n");
 }
 
 const generateHollowDiamond = function(height) {
@@ -132,15 +140,14 @@ const emptyLine = function(breadth){
 const createEmptyRectangle = function(length,breadth){
   let rectangle = [];;
   let row = repeatCharacter(length,"*");
+  rectangle = [row];
   if(breadth>2){
     let emptyRow = emptyLine(length);
-    rectangle = fillNewArray(breadth-2,emptyRow);
-    rectangle.unshift(row);
-    rectangle.push(row);
-    return rectangle;
+    rectangle = rectangle.concat(fillNewArray(breadth-2,emptyRow));
   }
-  rectangle.push(row);
-  rectangle.push(row);
+  if(breadth>1){
+    rectangle.push(row);
+  }
   return rectangle;
 }
 
