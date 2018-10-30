@@ -1,8 +1,9 @@
+const extractInputs = require('./src/patternsUtil.js').extractInputs;
 const createDiamond = require('./src/patternsLib.js').createDiamond;
-const main = function(){
-  let type = process.argv[2];
-  let height = +process.argv[3];
+
+const main = function(type,height){
   console.log(createDiamond(type,height));
 }
 
-main()
+let inputs = extractInputs(process.argv);
+main(inputs.type,inputs.height)

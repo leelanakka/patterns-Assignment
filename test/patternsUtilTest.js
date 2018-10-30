@@ -1,6 +1,7 @@
 const assert = require('assert');
 
-const {repeatSpaces,
+const {
+  repeatSpaces,
   makeCycler,
   repeatCharacter,
   generateDiamondUpperPart,
@@ -22,7 +23,9 @@ const {repeatSpaces,
   createFilledRectangle,
   createLeftAlignedTriangle,
   createRightAlignedTriangle,
-  fillNewArray} = require('../src/patternsUtil.js');
+  fillNewArray,
+  extractInputs
+} = require('../src/patternsUtil.js');
 
 assert.equal(repeatSpaces(2),"  ");
 assert.equal(repeatSpaces(1)," ");
@@ -129,4 +132,6 @@ assert.deepEqual(fillNewArray(1,"*"),["*"]);
 assert.deepEqual(fillNewArray(2,"*"),["*","*"]);
 assert.deepEqual(fillNewArray(2,"#"),["#","#"]);
 assert.deepEqual(fillNewArray(5,"#"),["#","#","#","#","#"]);
+
+assert.deepEqual(extractInputs([1,2,3,4]),{ type:3,height:4 });
 console.log("all tests passed");

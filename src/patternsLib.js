@@ -1,4 +1,5 @@
-const {repeatSpaces,
+const {
+  repeatSpaces,
   makeCycler,
   repeatCharacter,
   generateDiamondUpperPart,
@@ -19,31 +20,32 @@ const {repeatSpaces,
   createAlternateRectangle,
   createFilledRectangle,
   createLeftAlignedTriangle,
-  createRightAlignedTriangle } = require('./patternsUtil.js')
+  createRightAlignedTriangle 
+} = require('./patternsUtil.js')
 
 const createRectangle = function(type,length,breadth){
-  let rectangle = {filled: createFilledRectangle,
+  let generateRectangle = {filled: createFilledRectangle,
     empty:createEmptyRectangle,
     alternating:createAlternateRectangle};
-  return rectangle[type](length,breadth).join("\n");
+  return generateRectangle[type](length,breadth).join("\n");
 }
 
 const createTriangle = function(type,baseWidth){
-  let triangle = {right : createRightAlignedTriangle, 
+  let generateTriangle = {right : createRightAlignedTriangle, 
     left : createLeftAlignedTriangle,
     rightReverse : createReverseRightAligned,
     leftReverse : createReverseLeftAligned };
-  return triangle[type](baseWidth);
+  return generateTriangle[type](baseWidth);
 }
 
 const createDiamond = function(type,height){
   if(height%2 == 0){
     height ++;
   }
-  let diamond = {filled : generateFilledDiamond,
+  let generateDiamond = {filled : generateFilledDiamond,
     hollow : generateHollowDiamond,
     angled : generateAngledDiamond};
-  return diamond[type](height);
+  return generateDiamond[type](height);
 }
 
 exports.createRectangle = createRectangle;

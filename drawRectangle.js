@@ -1,12 +1,9 @@
-let input = [];
 const createRectangle = require('./src/patternsLib.js').createRectangle;
+const extractInputs = require('./src/patternsUtil.js').extractInputs;
 
-process.argv.forEach(function (val) {
-  input.push(val);
-})
-
-const main = function(){
-  console.log(createRectangle(input[2],+input[3],+input[4]));
+const main = function(type,height,breadth){
+  console.log(createRectangle(type,height,breadth));
 }
 
-main()
+let inputs = extractInputs(process.argv);
+main(inputs.type,inputs.height,inputs.breadth)
