@@ -47,12 +47,12 @@ const generateLowerPart = function(height,firstCharacter,lastCharacter,character
   return diamond.concat(edgeLineOfDiamond(height));
 }
 
-const line = function(width) {
-  return repeatSpaces(Math.ceil(width/2))+"*"+repeatSpaces(Math.ceil(width/2));
+const line = function(height) {
+  return repeatSpaces(Math.ceil(height/2))+"*"+repeatSpaces(Math.ceil(height/2));
 }
 
-const edgeLineOfDiamond = function(width) {
-  return line(width-1);
+const edgeLineOfDiamond = function(height) {
+  return line(height-1);
 }
 
 const middlePart = function(width,character){
@@ -71,7 +71,6 @@ const joinLines = function(upper,middle,lower){
 
 const generateHollowDiamond = function(height) {
   let hollowDiamond = "";
-  let delimiter = "\n";
   let upper = generateDiamondUpperPart(height,"*","*"," ");
   let middle = middlePart(height," ")
   let lower = generateLowerPart(height,"*","*"," ");
@@ -80,7 +79,6 @@ const generateHollowDiamond = function(height) {
 
 const generateAngledDiamond = function(height) {
   let hollow = "";
-  let delimiter = "\n";
   let upper = generateDiamondUpperPart(height,"/","\\"," ");
   let middle = middlePart(height," ");
   let lower = generateLowerPart(height,"\\","/",    " ");
@@ -169,9 +167,7 @@ const extractInputs = function(inputs){
   let userInputs = {};
   userInputs.type = inputs[2];
   userInputs.height = +inputs[3];
-  if(inputs[4]){
-    userInputs.breadth = +inputs[4];
-  }
+  userInputs.breadth = +inputs[4];
   return userInputs;
 }
 

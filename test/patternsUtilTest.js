@@ -133,5 +133,7 @@ assert.deepEqual(fillNewArray(2,"*"),["*","*"]);
 assert.deepEqual(fillNewArray(2,"#"),["#","#"]);
 assert.deepEqual(fillNewArray(5,"#"),["#","#","#","#","#"]);
 
-assert.deepEqual(extractInputs([1,2,3,4]),{ type:3,height:4 });
+assert.deepEqual(extractInputs([1,2,3,4,5]),{ type:3,height:4,breadth:5 });
+assert.deepEqual(extractInputs([1,2,"filled",4,5]),{ type:"filled",height:4,breadth:5 });
+assert.deepEqual(extractInputs([1,2,"leela",4,5]),{ type:"leela",height:4,breadth:5 });
 console.log("all tests passed");
